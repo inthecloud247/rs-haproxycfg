@@ -19,13 +19,13 @@ module Frontends
         # Only return operational instances
         operational = servers.select {|s| s['state'] == 'operational' }
 
-        # Ip-addresses etc. is stored in server.settings
+        # Ip-addresses etc. are stored in server.settings
         instances = operational.map { |i| Server.find(i['href']).settings }
       
         # Filter results with deployment id
         deployment = instances.select { |i| i["deployment_href"].split('/').last == @deployment }
       
-        # Unify resultset
+        # Unify resultset & sanitize resultset
         deployment.map { |instance| {:nickname => sanitize_nickname(instance['nickname']), :private_ip_address => instance['private-ip-address'] }}
       elsif @array
         array = Ec2ServerArray.find(@array.to_i)
