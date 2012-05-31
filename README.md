@@ -11,11 +11,11 @@ Clone or fork the project
 
 ## Depencies
 
-+ [rest_connection]/(https://github.com/rightscale/rest_connection)
++ [rest\_connection]/(https://github.com/rightscale/rest_connection)
 + [trollop](http://gitorious.org/projects/trollop)
 
 ## Configuration
-+ See [rest_connection]/(https://github.com/rightscale/rest_connection) configuration guide
++ See [rest\_connection]/(https://github.com/rightscale/rest_connection) configuration guide
 + Create Haproxy configuration template, see _template/haproxy.cfg.example.erb_ for details.
 
 ## Example usage
