@@ -1,0 +1,35 @@
+#!/usr/bin/env ruby
+
+$LOAD_PATH.unshift(File.dirname(__FILE__) + '/../lib') unless $LOAD_PATH.include?(File.dirname(__FILE__) + '/../lib')
+
+require 'rs-haproxycfg'
+
+opts = Trollop::options do
+  version "rs-haproxycfg 0.1.0 (c) 2012 Applifier Ltd"
+  banner "HAProxy dynamic configuration tool"
+  opt :config, "Haproxy config file", :type => :string, :default => File.expand_path(File.join(File.dirname(__FILE__), './../templates/haproxy.cfg'))
+  opt :template, "Haproxy config template", :type => :string, :default => File.expand_path(File.join(File.dirname(__FILE__), './../templates/haproxy.cfg.erb'))
+  opt :array, "RightScale server array id", :type => :string, :default => ENV['RIGHTSCALE_SERVER_ARRAY']
+  opt :nickname, "RightScale server nickname filter", :type => :string, :default => nil
+  opt :deployment, "RightScale deployment", :type => :string, :default => ENV['RIGHTSCALE_DEPLOYMENT']
+  opt :print, "Print config to stdout", :default => false
+  opt :log, "RestConnection logfile", :type => :string, :default => nil
+end
+
+Trollop::die :template, "Haproxy config template must exist" unless File.exist?(opts[:template])
+
+unless opts[:array]
+  Trollop::die :nickname, "Missing argument --deployment" unless opts[:deployment]
+  Trollop::die :deployment, "Missing argument --nickname" unless opts[:nickname]
+end
+
+if __FILE__ == $0
+  config = Haproxy::Config.new(opts)
+  if opts[:print]
+    config.print
+  else
+    config.write
+  end
+end
+
+

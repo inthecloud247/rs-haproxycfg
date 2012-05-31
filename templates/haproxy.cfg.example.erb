@@ -1,0 +1,32 @@
+# based on haproxy's examples/haproxy.cfg
+
+global
+	log 127.0.0.1	local0
+	log 127.0.0.1	local1 notice
+	#log loghost	local0 info
+	maxconn 4096
+	chroot /usr/share/haproxy
+	uid 99
+	gid 99
+	daemon
+	#debug
+	#quiet
+
+defaults
+	log	global
+	mode	http
+	option	httplog
+	option	dontlognull
+	retries	3
+	redispatch
+	maxconn	2000
+	contimeout	5000
+	clitimeout	50000
+	srvtimeout	50000
+
+listen	appli1-rewrite 0.0.0.0:10001
+	cookie	SERVERID rewrite
+	balance	roundrobin
+<% @instances.each do |i| %>
+	server <%= i[:nickname] %> <%= i[:private_ip_address] %>:8080 cookie <%= i[:nickname] %> check inter 2000 rise 2 fall 5
+<% end %>

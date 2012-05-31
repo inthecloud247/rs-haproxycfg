@@ -1,0 +1,3 @@
+templates/haproxy.cfg.erb
+templates/haproxy.cfg
+templates/haproxy.cfg.bak.*
