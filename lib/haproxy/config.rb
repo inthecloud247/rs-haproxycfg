@@ -38,8 +38,8 @@ module Haproxy
         Dir::mkdir(dir) unless File.exists?(dir)
         File.open(@config, 'w') {|f| f.write(@cfg) }
         puts "Wrote #{@config}"
-      rescue
-        fail "Could not write #{@config}: #{$!}"
+      rescue Errno::EACCES
+        abort "Could not write #{@config}: #{$!}"
       end
     end
     
