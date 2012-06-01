@@ -9,11 +9,11 @@ Generated configuration can be printed to screen or saved directly to disk. When
 ## Installation
 Clone or fork the project
 
-### Depencies
+## Depencies
 
 	bundle install
 
-### Configuration
+## Configuration
 + See [RestConnection]/(https://github.com/rightscale/rest_connection) configuration guide
 + Create Haproxy configuration template, see _template/haproxy.cfg.example.erb_ for details.
 
