@@ -11,7 +11,7 @@ module Frontends
       @array = opts[:array]
     end
 
-    def instances()
+    def instances
       if @deployment and @nickname
         # Searching instances from deployment is slow so we fetch all matching servers and filter them afterwards
         servers = Server.find_by(:nickname) { |n| n =~ /^#{@nickname}[0-9]+/ }
