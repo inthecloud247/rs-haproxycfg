@@ -40,7 +40,7 @@ module Frontends
       end
     end
     
-    protected
+    private
 
     def sanitize_nickname(nickname)
       # Simple sanitization

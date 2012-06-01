@@ -25,7 +25,7 @@ module Haproxy
       end
     end
 
-    protected
+    private
     
     def parse_config()
       template = ERB.new(File.read(@template), nil, '<%>')
