@@ -17,16 +17,16 @@ module Frontends
         servers = Server.find_by(:nickname) { |n| n =~ /^#{@nickname}[0-9]+/ }
       
         # Only return operational instances
-        operational = servers.select {|s| s['state'] == 'operational' }
+        operational = servers.select { |s| s['state'] == 'operational' }
 
-        # Ip-addresses etc. are stored in server.settings
+        # Ip-addresses etc. is stored in server.settings
         instances = operational.map { |i| Server.find(i['href']).settings }
       
         # Filter results with deployment id
         deployment = instances.select { |i| i["deployment_href"].split('/').last == @deployment }
       
-        # Unify resultset & sanitize resultset
-        deployment.map { |instance| {:nickname => sanitize_nickname(instance['nickname']), :private_ip_address => instance['private-ip-address'] }}
+        # Unify resultset
+        deployment.map { |instance| { :nickname => sanitize_nickname(instance['nickname']), :private_ip_address => instance['private-ip-address'] } }
       elsif @array
         array = Ec2ServerArray.find(@array.to_i)
 
@@ -34,7 +34,7 @@ module Frontends
         instances = array.instances.select {|i| i['state'] == 'operational' }
 
         # Unify & sanitize resultset
-        instances.map { |instance| {:nickname => sanitize_nickname(instance['nickname']), :private_ip_address => instance['private_ip_address'] }}
+        instances.map { |instance| { :nickname => sanitize_nickname(instance['nickname']), :private_ip_address => instance['private_ip_address'] } }
       else
         fail "No server array or deployment & nickname filters were given"
       end
