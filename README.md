@@ -9,27 +9,26 @@ Generated configuration can be printed to screen or saved directly to disk. When
 ## Installation
 Clone or fork the project
 
-## Depencies
+### Depencies
 
-+ [rest\_connection]/(https://github.com/rightscale/rest_connection)
-+ [trollop](http://gitorious.org/projects/trollop)
+	bundle install
 
-## Configuration
-+ See [rest\_connection]/(https://github.com/rightscale/rest_connection) configuration guide
+### Configuration
++ See [RestConnection]/(https://github.com/rightscale/rest_connection) configuration guide
 + Create Haproxy configuration template, see _template/haproxy.cfg.example.erb_ for details.
 
 ## Example usage
 Generate configuration using Server Array instances
 
-	ruby -rubygems bin/rs-haproxycfg --print --array 123456789 --template templates/haproxy.cfg.example.erb
+	bundle exec bin/rs-haproxycfg --print --array 123456789 --template templates/haproxy.cfg.example.erb
 	
 Generate configuration using server nicknames & deployment id (example matches instances within deployment 123456789 with nickname web[0-9]+)
 
-	ruby -rubygems bin/rs-haproxycfg --print --deployment 123456789 --nickname web --template templates/haproxy.cfg.example.erb
+	bundle exec bin/rs-haproxycfg --print --deployment 123456789 --nickname web --template templates/haproxy.cfg.example.erb
 
 Generate configuration and save it to disk
 
-	ruby -rubygems bin/rs-haproxycfg --array 123456789 --template templates/haproxy.cfg.example.erb --config /etc/haproxy/haproxy.cfg
+	bundle exec bin/rs-haproxycfg --array 123456789 --template templates/haproxy.cfg.example.erb --config /etc/haproxy/haproxy.cfg
 
 ## License
 (The MIT License)

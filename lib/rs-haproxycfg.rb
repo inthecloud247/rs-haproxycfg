@@ -4,8 +4,8 @@ $:.unshift File.dirname(__FILE__)
 require 'erb'
 
 # 3rd party
-require 'trollop'
-require 'rest_connection'
+require "bundler/setup"
+Bundler.require(:default)
 
 # internal requires
 require 'haproxy/config'
