@@ -25,11 +25,7 @@ end
 
 if __FILE__ == $0
   config = Haproxy::Config.new(opts)
-  if opts[:print]
-    config.print
-  else
-    config.write
-  end
+  opts[:print] ? config.print : config.write
 end
 
 
