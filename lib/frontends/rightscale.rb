@@ -16,8 +16,8 @@ module Frontends
         # Searching instances from deployment is slow so we fetch all matching servers and filter them afterwards
         servers = Server.find_by(:nickname) { |n| n =~ /^#{@nickname}[0-9]+/ }
       
-        # Only return operational instances
-        operational = servers.select { |s| s['state'] == 'operational' }
+        # Only return operational and booting instances
+        operational = servers.select { |s| s['state'] == 'operational' or s['state'] == 'booting'}
 
         # Ip-addresses etc. is stored in server.settings
         instances = operational.map { |i| Server.find(i['href']).settings }
@@ -30,8 +30,8 @@ module Frontends
       elsif @array
         array = Ec2ServerArray.find(@array.to_i)
 
-        # Only return operational instances
-        instances = array.instances.select {|i| i['state'] == 'operational' }
+        # Only return operational and booting instances
+        instances = array.instances.select {|i| i['state'] == 'operational' or i['state'] == 'booting' }
 
         # Unify & sanitize resultset
         instances.map { |instance| { :nickname => sanitize_nickname(instance['nickname']), :private_ip_address => instance['private_ip_address'] } }
