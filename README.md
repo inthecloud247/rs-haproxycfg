@@ -14,7 +14,7 @@ Clone or fork the project
 	bundle install
 
 ## Configuration
-+ See [RestConnection]/(https://github.com/rightscale/rest_connection) configuration guide
++ See [RestConnection](https://github.com/rightscale/rest_connection) configuration guide
 + Create Haproxy configuration template, see _template/haproxy.cfg.example.erb_ for details.
 
 ## Example usage
